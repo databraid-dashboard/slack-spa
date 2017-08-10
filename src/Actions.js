@@ -1,8 +1,6 @@
 // @flow
 
-// import Api from './Api.js';
 import type { State } from './store';
-
 import fakeMessages from './messages.json';
 
 type Dispatch = ({type: string}) => void;
@@ -14,6 +12,7 @@ function fakePromise(data, delay) {
   });
 }
 
+// TODO: alphabetize actions
 const Actions = {
   connectWithSlack() {
     return {
@@ -22,13 +21,31 @@ const Actions = {
   },
 
   fetchChannels() {
-    return async function(dispatch: Dispatch) {
+    return async function (dispatch: Dispatch) {
       // TODO: replace with real Api call
       const channels = await fakePromise(['#random', '#general', '#redux']);
       dispatch({
         channels,
         type: 'RECEIVED_CHANNEL_LIST',
       });
+    };
+  },
+
+  fetchScores() {
+    return async function (dispatch: Dispatch) {
+      // TODO: replace with real Api call
+      const scores = await fakePromise({ '#random': 0, '#general': 0.5, '#redux': -0.2 });
+      dispatch({
+        scores,
+        type: 'RECEIVED_CHANNEL_LIST',
+      });
+    };
+  },
+
+  processNewScores(scoreData: {[string]: number}) {
+    return {
+      scoreData,
+      type: 'RECEIVED_NEW_SCORE',
     };
   },
 
@@ -41,7 +58,7 @@ const Actions = {
   },
 
   fetchMessagesForChannel(channel: string) {
-    return async function(dispatch: Dispatch, getState: GetState) {
+    return async function (dispatch: Dispatch, getState: GetState) {
       const oldMessages = getState().channelData[channel];
       if (oldMessages) {
         // Don't fetch again if we already have messages.
@@ -60,12 +77,12 @@ const Actions = {
       switch (channel) {
         case '#random':
           messages = {
-            12345: {
-              "id": 12345,
-              "text": "Make it so!",
-              "avatarImage": "Picard",
-              "name": "Captain Picard",
-              "timestamp": "2017-08-01"
+            X12345: {
+              id: 'X12345',
+              text: 'Make it so!',
+              avatarImage: 'Picard',
+              name: 'Captain Picard',
+              timestamp: '2017-08-01',
             },
           };
           break;
@@ -75,6 +92,8 @@ const Actions = {
         case '#redux':
           messages = fakeMessages;
           break;
+        default:
+          return;
       }
 
       // TODO: replace with real Api call

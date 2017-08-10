@@ -3,29 +3,28 @@
 import React from 'react';
 import { List } from 'semantic-ui-react';
 import Message from './Message';
-import type { MessageType } from './store';
 import owl from './images/avatars/owl.png';
 
 import store from './store';
 import Actions from './Actions';
-
-type MessageListProps = {
-  selectedChannel: ?string,
-};
 
 export default class MessageList extends React.Component {
   componentWillMount() {
     store.subscribe(() => this.forceUpdate());
   }
 
+  props: {
+    selectedChannel: ?string,
+  }
+
   render() {
-    const {selectedChannel} = this.props;
+    const { selectedChannel } = this.props;
     let messages = store.getState().channelData[this.props.selectedChannel];
     if (!messages) {
       if (selectedChannel) {
         setTimeout(
           () => store.dispatch(Actions.fetchMessagesForChannel(selectedChannel)),
-          0
+          0,
         );
       }
       messages = {};

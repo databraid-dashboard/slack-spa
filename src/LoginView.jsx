@@ -3,7 +3,7 @@
 import React from 'react';
 import { Button, Image } from 'semantic-ui-react';
 import logo from './images/slack-logo.png';
-import slackConnectHref from './connectWithSlackHref';
+// import slackConnectHref from './connectWithSlackHref';
 import slack from './images/slack_icon.png';
 
 import store from './store';
@@ -20,10 +20,11 @@ export default function LoginView() {
           <Button
             size="big"
             color={'teal'}
-            //href={slackConnectHref}
+            // href={slackConnectHref}
             onClick={
               () => store.dispatch(Actions.connectWithSlack())
-            }>
+            }
+          >
             <Image avatar src={slack} />
             Connect with Slack
           </Button>

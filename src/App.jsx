@@ -1,13 +1,10 @@
 // @flow
 import React, { Component } from 'react';
-import COLORS from './Colors';
 import LoginView from './LoginView';
 import MessageList from './MessageList';
-//import messages from './messages.json';
 import Toolbar from './Toolbar';
+import convertScoreToColorAndEmoji from './convertScoreToColorAndEmoji';
 import './App.css';
-import type { Id, MessageType } from './store';
-
 import store from './store';
 
 // type AppProps = {
@@ -24,6 +21,9 @@ class App extends Component {
 
   render() {
     const state = store.getState();
+    const currentScore = state.scoreData[state.selectedChannel] || 0.01;
+    const computedColor = convertScoreToColorAndEmoji(currentScore).color;
+    // const computedEmoji = convertScoreToColorAndEmoji(currentScore).emoji;
 
     if (!state.isConnectedWithSlack) {
       return <LoginView />;
@@ -33,8 +33,8 @@ class App extends Component {
       <div>
         <div>
           <Toolbar
-            color={COLORS[1]}
-            score={6}
+            color={computedColor}
+            score={currentScore}
             isShowingScores={false}
           />
         </div>
