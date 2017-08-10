@@ -72,17 +72,18 @@ describe('Actions', () => {
   });
 
   it('should return an action object from fetchMessagesForChannel', async () => {
-    // const channels = await fakePromise(['#random', '#general', '#redux']);
-    // const dispatches = await Thunk(Actions.fetchChannels).execute();
+    // I DONT UNDERSTAND HOW THIS ACTION WORKS
+
+    // const messages = ????
+    // const channels = await fakePromise(messages);
+    // const dispatches = await Thunk(Actions.fetchMessagesForChannel).execute();
     // expect(dispatches.length).toBe(1);
     // expect(dispatches[0].isPlainObject()).toBe(true);
     // expect(dispatches[0].getAction()).toEqual({
-    //   channels,
-    //   type: 'RECEIVED_CHANNEL_LIST',
+    //   channel,
+    //   messages,
+    //   type: 'RECEIVED_MESSAGES_FOR_CHANNEL',
     // });
-
-
-    //I don't understand what's supposed to be happening in this action???
   });
 
   it('should return an action object from selectChannel', () => {

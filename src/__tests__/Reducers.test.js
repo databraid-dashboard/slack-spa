@@ -59,19 +59,18 @@ describe('storeReducer', () => {
     //********Unnecessary reducer
 
   it('should store new message', () => {
-    // const newMessageData = {
-    //   1: {
-    //     1: 'This is a message',
-    //   },
-    //   1: {
-    //     2: 'Here is another new message',
-    //   }
-    // };
-    // const action = {type: 'RECEIVED_NEW_MESSAGES', newMessageData};
-    // Reducer(storeReducer).withState(initialState).expect(action).toReturnState({...initialState, channelData: ???});
+    const newMessageData = {
+      1: {
+        1: 'This is a message',
+      },
+      1: {
+        2: 'Here is another new message',
+      }
+    };
+    const action = {type: 'RECEIVED_NEW_MESSAGES', messages: newMessageData};
 
-
-    //***Not sure exactly what this is supposed to be returning. What is channelData supposed to look like?
+    const newChannelData = {"1": {"2": "Here is another new message"}};
+    Reducer(storeReducer).withState(initialState).expect(action).toReturnState({...initialState, channelData: newChannelData});
   });
 
 });
