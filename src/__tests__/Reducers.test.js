@@ -44,18 +44,19 @@ describe('storeReducer', () => {
     //***Not sure how the action associated with this is supposed to work
   });
 
-  it('should store score for recent messages', () => {
+  it('should store new score', () => {
     const action = {
-      type: 'RECEIVED_SCORE_FOR_MESSAGES',
-      channel: 1,
-      score: 0.20};
-    Reducer(storeReducer).withState(initialState).expect(action).toReturnState({...initialState, scoreData: {1: 0.20}});
+      type: 'RECEIVED_NEW_SCORE',
+      scoreData: {'#random': 0.02}
+    };
+    Reducer(storeReducer).withState(initialState).expect(action).toReturnState({...initialState, isShowingScores: true, scoreData: {'#random': 0.02}});
   });
 
-  it('should store boolean indicating score presence', () => {
-    const action = {type: 'SHOW_SCORE'};
-    Reducer(storeReducer).withState(initialState).expect(action).toReturnState({...initialState, isShowingScores: true});
-  });
+  // it('should store boolean indicating score presence', () => {
+  //   const action = {type: 'SHOW_SCORE'};
+  //   Reducer(storeReducer).withState(initialState).expect(action).toReturnState({...initialState, isShowingScores: true});
+  // });
+    //********Unnecessary reducer
 
   it('should store new message', () => {
     // const newMessageData = {

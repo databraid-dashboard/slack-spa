@@ -4,14 +4,6 @@ import toJson from 'enzyme-to-json';
 import React from 'react';
 import Actions from '../Actions.js';
 
-// connectWithSlack  \,
-// fetchChannels \,
-// processNewMessages \,
-// fetchMessagesForChannel
-// selectChannel \,
-
-//Why aren't there dispatches for connectWithSlack, processNewMessages, and selectChannel?
-
 function fakePromise(data, delay) {
   return new Promise((resolve, reject) => {
     setTimeout(() => resolve(data), delay || 2000);
@@ -36,6 +28,29 @@ describe('Actions', () => {
       channels,
       type: 'RECEIVED_CHANNEL_LIST',
     });
+  });
+
+  // it('should return an action object from fetchScores', async () => {
+  //   const channels = await fakePromise({ '#random': 0, '#general': 0.5, '#redux': -0.2 });
+  //   const dispatches = await Thunk(Actions.fetchScores).execute();
+  //   expect(dispatches.length).toBe(1);
+  //   expect(dispatches[0].isPlainObject()).toBe(true);
+  //   expect(dispatches[0].getAction()).toEqual({
+  //     scores,
+  //     type: 'RECEIVED_CHANNEL_LIST',
+  //   });
+  // });
+  //********Unnecessary action
+
+  it('should return an action object from processNewScores', async () => {
+    const newScoreData = {'#random': 0.02};
+
+    const expectedAction = {
+      scoreData: newScoreData,
+      type: 'RECEIVED_NEW_SCORE',
+    };
+
+    expect(Actions.processNewScores(newScoreData)).toEqual(expectedAction);
   });
 
   it('should return an action object from processNewMessages', () => {

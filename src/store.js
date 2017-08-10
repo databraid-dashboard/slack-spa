@@ -69,11 +69,12 @@ export function storeReducer(state: State, action): State {
         isShowingScores: true,
         scoreData: newScoreData,
       };
-    case 'SHOW_SCORE':
-      return {
-        ...state,
-        isShowingScores: true,
-      };
+    // case 'SHOW_SCORE':
+    //   return {
+    //     ...state,
+    //     isShowingScores: true,
+    //   };
+    //********Unnecessary reducer
 
     case 'RECEIVED_NEW_MESSAGES':
       newChannelData = { ...state.channelData };
