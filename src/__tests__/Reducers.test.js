@@ -31,18 +31,15 @@ describe('storeReducer', () => {
   });
 
   it('should store new channel data', () => {
-    // const channels = ['#random', '#general', '#redux'];
-    // const action = {type: 'RECEIVED_CHANNEL_LIST', channels};
-    // Reducer(storeReducer).withState(initialState).expect(action).toReturnState({...initialState, channelData: ???, selectedChannel: ???});
-
-
-  //***Not sure exactly what this is supposed to be returning. What is channelData supposed to look like?
+    const channels = ['#random', '#general', '#redux'];
+    const existingState = {...initialState, selectedChannel: 1};
+    const action = {type: 'RECEIVED_CHANNEL_LIST', channels};
+    Reducer(storeReducer).withState(existingState).expect(action).toReturnState({...initialState, channelData: {'#random': null, '#general': null, '#redux': null}, selectedChannel: 1});
   });
 
   it('should store messages for channel', () => {
     // const action = {type: 'RECEIVED_MESSAGES_FOR_CHANNEL'};
-    // Reducer(storeReducer).withState(initialState).expect(action).toReturnState({...initialState, channelData: ???});
-
+    // Reducer(storeReducer).withState(initialState).expect(action).toReturnState({...initialState, channelData: {}});
 
     //***Not sure how the action associated with this is supposed to work
   });
@@ -53,17 +50,11 @@ describe('storeReducer', () => {
       channel: 1,
       score: 0.20};
     Reducer(storeReducer).withState(initialState).expect(action).toReturnState({...initialState, scoreData: {1: 0.20}});
-
-
-    //***No action to go with this reducer
   });
 
   it('should store boolean indicating score presence', () => {
     const action = {type: 'SHOW_SCORE'};
     Reducer(storeReducer).withState(initialState).expect(action).toReturnState({...initialState, isShowingScores: true});
-
-
-    //***No action to go with this reducer
   });
 
   it('should store new message', () => {
