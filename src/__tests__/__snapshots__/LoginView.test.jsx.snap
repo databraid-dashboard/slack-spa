@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders message with default props should render a message when given props 1`] = `
+<div>
+  <div
+    className="SlackApp"
+  >
+    <div
+      className="SlackApp-header"
+    >
+      <img
+        alt="slack-logo"
+        className="SlackApp-logo"
+        src="slack-logo.png"
+      />
+    </div>
+    <div
+      className="connectButton"
+    >
+      <Button
+        as="button"
+        color="teal"
+        onClick={[Function]}
+        size="big"
+      >
+        <Image
+          as="img"
+          avatar={true}
+          src="slack_icon.png"
+          ui={true}
+        />
+        Connect with Slack
+      </Button>
+    </div>
+  </div>
+</div>
+`;

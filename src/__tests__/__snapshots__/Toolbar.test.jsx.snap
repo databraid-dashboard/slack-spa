@@ -11,7 +11,7 @@ exports[`Renders toolbar should render a toolbar 1`] = `
     <Image
       as="img"
       avatar={true}
-      src="Slack_Icon.png"
+      src="slack_icon.png"
       ui={true}
     />
   </MenuItem>
@@ -27,19 +27,9 @@ exports[`Renders toolbar should render a toolbar 1`] = `
     renderLabel={[Function]}
     searchInput="text"
     selectOnBlur={true}
-    text="Channel name"
+    text="Select a channel"
   >
-    <DropdownMenu>
-      <DropdownItem>
-        Team 1
-      </DropdownItem>
-      <DropdownItem>
-        Team 2
-      </DropdownItem>
-      <DropdownItem>
-        Team 3
-      </DropdownItem>
-    </DropdownMenu>
+    <DropdownMenu />
   </Dropdown>
   <MenuMenu
     position="right"
@@ -50,7 +40,7 @@ exports[`Renders toolbar should render a toolbar 1`] = `
       <Image
         as="img"
         avatar={true}
-        src="smile.jpg"
+        src="neutral.jpg"
         ui={true}
       />
     </MenuItem>

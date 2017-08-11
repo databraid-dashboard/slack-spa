@@ -1,24 +1,49 @@
 // @flow
-import React from 'react';
-import COLORS from './Colors';
+import React, { Component } from 'react';
+import LoginView from './LoginView';
 import MessageList from './MessageList';
 import Toolbar from './Toolbar';
-import logo from './images/slack-logo.png';
+import convertScoreToColorAndEmoji from './convertScoreToColorAndEmoji';
 import './App.css';
+import store from './store';
 
-export default function App() {
-  return (
-    <div className="App">
-      <div className="App-header">
-        <img src={logo} className="App-logo" alt="slack-logo" />
-      </div>
+// type AppProps = {
+//
+// };
+//
+// export default function App(props: AppProps) {
+//   // const messages = ...;
+
+class App extends Component {
+  componentWillMount() {
+    store.subscribe(() => this.forceUpdate());
+  }
+
+  render() {
+    const state = store.getState();
+    const currentScore = state.scoreData[state.selectedChannel] || 0.01;
+    const computedColor = convertScoreToColorAndEmoji(currentScore).color;
+    // const computedEmoji = convertScoreToColorAndEmoji(currentScore).emoji;
+
+    if (!state.isConnectedWithSlack) {
+      return <LoginView />;
+    }
+
+    return (
       <div>
-        <Toolbar color={COLORS[1]} />
+        <div>
+          <Toolbar
+            color={computedColor}
+            score={currentScore}
+            isShowingScores={false}
+          />
+        </div>
+        <div className="listColor">
+          <MessageList selectedChannel={state.selectedChannel} />
+        </div>
       </div>
-      <div className="listColor">
-        <MessageList />
-      </div>
-    </div>
-
-  );
+    );
+  }
 }
+
+export default App;

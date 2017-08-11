@@ -1,25 +1,30 @@
-.App {
-  text-align: left;
+.SlackApp {
+  text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
+.SlackApp-logo {
+  animation: SlackApp-logo-spin infinite 20s linear;
   height: 80px;
 }
 
-.App-header {
+.SlackApp-header {
   background-color: white;
   border-radius: 15px;
   color: white;
   height: 150px;
-  padding: 40px;
+  padding: 10px;
 }
 
-.App-intro {
+.SlackApp-intro {
   font-size: large;
 }
 
-@keyframes App-logo-spin {
+@keyframes SlackApp-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.LoginView {
+  height: 50px;
+  padding: 10px;
 }
