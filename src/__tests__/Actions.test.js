@@ -72,7 +72,7 @@ describe('Actions', () => {
   });
 
   it('should return an action object from fetchMessagesForChannel', async () => {
-    // I DONT UNDERSTAND HOW THIS ACTION WORKS
+    // ***I DONT UNDERSTAND HOW THIS ACTION WORKS
 
     // const messages = ????
     // const channels = await fakePromise(messages);

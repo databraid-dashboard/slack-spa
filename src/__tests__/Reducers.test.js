@@ -41,7 +41,7 @@ describe('storeReducer', () => {
     // const action = {type: 'RECEIVED_MESSAGES_FOR_CHANNEL'};
     // Reducer(storeReducer).withState(initialState).expect(action).toReturnState({...initialState, channelData: {}});
 
-    //***Not sure how the action associated with this is supposed to work
+    //***I DONT UNDERSTAND HOW THE CORRESPONDING ACTION WORKS
   });
 
   it('should store new score', () => {
