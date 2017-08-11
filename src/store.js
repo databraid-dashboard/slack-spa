@@ -74,7 +74,7 @@ export function storeReducer(state: State, action): State {
     //     ...state,
     //     isShowingScores: true,
     //   };
-    //********Unnecessary reducer
+    //* *******Unnecessary reducer
 
     case 'RECEIVED_NEW_MESSAGES':
       newChannelData = { ...state.channelData };

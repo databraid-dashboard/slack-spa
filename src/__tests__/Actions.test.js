@@ -1,17 +1,13 @@
-import { shallow } from 'enzyme';
 import { Thunk } from 'redux-testkit';
-import toJson from 'enzyme-to-json';
-import React from 'react';
-import Actions from '../Actions.js';
+import Actions from '../Actions';
 
 function fakePromise(data, delay) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => resolve(data), delay || 2000);
   });
 }
 
 describe('Actions', () => {
-
   it('should return an action object from changeSubject', () => {
     const action = Actions.connectWithSlack();
     expect(action).toEqual({
@@ -40,10 +36,10 @@ describe('Actions', () => {
   //     type: 'RECEIVED_CHANNEL_LIST',
   //   });
   // });
-  //********Unnecessary action
+  //* *******Unnecessary action
 
   it('should return an action object from processNewScores', async () => {
-    const newScoreData = {'#random': 0.02};
+    const newScoreData = { '#random': 0.02 };
 
     const expectedAction = {
       scoreData: newScoreData,
@@ -56,11 +52,15 @@ describe('Actions', () => {
   it('should return an action object from processNewMessages', () => {
     const newMessageData = {
       1: {
-        1: 'This is a message',
+        2: {
+          avatarImage: '',
+          userId: 1,
+          name: '',
+          text: 'Here is another new message',
+          timestamp: new Date(1501626043.643661 * 1000),
+          channelId: 1,
+        },
       },
-      1: {
-        2: 'Here is another new message',
-      }
     };
 
     const expectedAction = {
@@ -87,7 +87,7 @@ describe('Actions', () => {
   });
 
   it('should return an action object from selectChannel', () => {
-    const channel =  "general";
+    const channel = 'general';
 
     const expectedAction = {
       channel,

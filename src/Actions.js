@@ -7,7 +7,7 @@ type Dispatch = ({type: string}) => void;
 type GetState = () => State;
 
 function fakePromise(data, delay) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => resolve(data), delay || 2000);
   });
 }
@@ -41,7 +41,7 @@ const Actions = {
   //     });
   //   };
   // },
-  //********Unnecessary action
+  //* *******Unnecessary action
 
   processNewScores(scoreData: {[string]: number}) {
     return {
