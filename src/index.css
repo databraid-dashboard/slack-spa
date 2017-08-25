@@ -13,3 +13,7 @@ body {
 .listColor {
   background-color: #e0ffff;
 }
+
+.connectButton {
+  padding-bottom: 50px;
+}
