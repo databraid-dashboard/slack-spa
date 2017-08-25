@@ -7,7 +7,6 @@ exports[`Renders message with default props should render a message when given p
   <Image
     as="img"
     avatar={true}
-    src=""
     ui={true}
   />
   <ListContent>

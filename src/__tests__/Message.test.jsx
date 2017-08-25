@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import React from 'react';
-import Message from '../Message';
+import Message from '../Components/Message';
 
 describe('Renders message with default props', () => {
   it('should render a message when given props', () => {

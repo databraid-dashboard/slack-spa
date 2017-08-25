@@ -2,18 +2,15 @@
 
 import React from 'react';
 import { Image, List } from 'semantic-ui-react';
+import type { MessageType } from '../FlowTypes/';
 
-type Props = {
-  avatarUrl: string,
-  name: string,
-  text: string,
-  timestamp: any,
-};
 
-export default function Message({ avatarUrl, name, text, timestamp }: Props) {
+export default function Message(
+  { avatarImage, name, text, timestamp }: MessageType,
+) {
   return (
     <List.Item className="listItem">
-      <Image avatar src={avatarUrl} />
+      <Image avatar src={avatarImage} />
       <List.Content>
         <List.Header>
           {`${name}, ${timestamp}`}
