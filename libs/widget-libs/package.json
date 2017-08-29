@@ -1,7 +1,17 @@
 {
-  "name": "databraid-react-starter",
-  "version": "1.0.0",
-  "private": true,
+  "name": "@databraid/slack-widget",
+  "version": "1.0.6",
+  "description": "",
+  "main": "index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=development babel --presets react-app -D -d lib ../../src/"
+  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "classnames": "2.2.5",
     "enzyme-to-json": "1.5.1",
@@ -23,6 +33,7 @@
     "socket.io-client": "2.0.3"
   },
   "devDependencies": {
+    "babel-cli": "6.24.1",
     "babel-eslint": "7",
     "enzyme": "2.9.1",
     "eslint": "3.x",
@@ -34,25 +45,5 @@
     "react-scripts": "1.0.10",
     "react-test-renderer": "15.6.1",
     "redux-testkit": "1.0.6"
-  },
-  "scripts": {
-    "build": "react-scripts build",
-    "eject": "react-scripts eject",
-    "flow": "flow",
-    "lint": "node_modules/eslint/bin/eslint.js --fix --ext=js --ext=jsx .",
-    "start": "react-scripts start",
-    "test": "react-scripts test --env=jsdom --verbose"
-  },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/databraid-dashboard/databraid-react-starter.git"
-  },
-  "author": "joshwyatt",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/databraid-dashboard/databraid-react-starter/issues"
-  },
-  "homepage": "https://github.com/databraid-dashboard/databraid-react-starter#readme"
+  }
 }
