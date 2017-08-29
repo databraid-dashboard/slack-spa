@@ -15,6 +15,8 @@ import slack from '../images/slackIcon.png';
 import smile from '../images/emojis/smile.jpg';
 import '../index.css';
 import type { ChannelData } from '../FlowTypes/';
+import injectWidgetId from '../Utils/utils';
+import type { Dispatch, OwnProps, State } from '../FlowTypes/';
 
 const sentiments =
   {
@@ -39,7 +41,6 @@ export class Toolbar extends React.Component {
     fetchChannels: Function,
     selectChannel: mixed,
     selectedChannel: mixed,
-
   };
 
   render() {
@@ -80,14 +81,25 @@ export class Toolbar extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  selectedChannel: state.selectedChannel,
-  score: state.scoreData[state.selectedChannel],
-  channelData: state.channelData,
-});
-const mapDispatchToProps = dispatch =>
+export const mapStateToProps = (state: State, ownProps: OwnProps) => {
+  console.log('** Toolbar ownProps',state, ownProps);
+  const id = ownProps.widgetId;
+  const selectedChannel =
+    state.widgets.byId[id].selectedChannel;
+  const score =
+    state.widgets.byId[id].scoreData[state.widgets.byId[id].selectedChannel];
+  const channelData = state.widgets.byId[id].channelData;
+
+  return {
+    channelData,
+    score,
+    selectedChannel,
+  }
+};
+
+export const mapDispatchToProps = (dispatch: Dispatch) =>
 bindActionCreators({
   selectChannel, fetchChannels,
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);
+export default injectWidgetId(connect(mapStateToProps, mapDispatchToProps)(Toolbar));
