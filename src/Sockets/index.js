@@ -6,6 +6,7 @@ import type { Store } from 'redux';
 import { processNewScores, processNewMessages } from '../Actions/index';
 import store from '../store';
 
+// TODO: This endpoint needs to be an environemntal variable
 const socket = openSocket('https://databraid.localtunnel.me');
 
 // TODO: needs to be refactored to remove reference to the store.
