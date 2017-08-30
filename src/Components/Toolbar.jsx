@@ -43,6 +43,7 @@ export class Toolbar extends Component {
   };
 
   render() {
+    // TODO: Sentiment analysis needs to be added; work is being done on the API side to add routes to get sentiment scores into/out of the DB
     const { score, selectedChannel, channelData, selectChannel } = this.props;
     const currentSentiment = convertScoreToColorAndEmoji(score).emoji;
     const computedColor = convertScoreToColorAndEmoji(score).color;
