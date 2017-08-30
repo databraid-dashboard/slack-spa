@@ -15,6 +15,8 @@ import slack from '../images/slackIcon.png';
 import smile from '../images/emojis/smile.jpg';
 import '../index.css';
 import type { ChannelData } from '../FlowTypes/';
+import injectWidgetId from '../Utils/utils';
+import type { Dispatch, OwnProps, State } from '../FlowTypes/';
 
 const sentiments = {
   frustrated,
@@ -25,20 +27,20 @@ const sentiments = {
 };
 
 export class Toolbar extends Component {
-  props: {
-    score: mixed,
-    channelData: ChannelData,
-    selectedChannel: mixed,
-    fetchChannels: Function,
-    selectChannel: mixed,
-  };
-
   componentWillMount() {
     const channels = Object.keys(this.props.channelData);
     if (channels.length === 0) {
       this.props.fetchChannels();
     }
   }
+
+  props: {
+    score: mixed,
+    channelData: ChannelData,
+    fetchChannels: Function,
+    selectChannel: mixed,
+    selectedChannel: mixed,
+  };
 
   render() {
     const { score, selectedChannel, channelData, selectChannel } = this.props;
@@ -74,19 +76,22 @@ export class Toolbar extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const selectedChannel = state.selectedChannel;
-  const score = state.scoreData[selectedChannel];
-  const channelData = state.channelData;
+export const mapStateToProps = (state: State, ownProps: OwnProps) => {
+  console.log('** Toolbar ownProps', state, ownProps);
+
+  const id = ownProps.widgetId;
+  const selectedChannel = state.widgets.byId[id].selectedChannel;
+  const score = state.widgets.byId[id].scoreData[selectedChannel];
+  const channelData = state.widgets.byId[id].channelData;
 
   return {
-    selectedChannel,
-    score,
     channelData,
+    score,
+    selectedChannel,
   };
 };
 
-const mapDispatchToProps = dispatch =>
+export const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       selectChannel,
@@ -95,4 +100,4 @@ const mapDispatchToProps = dispatch =>
     dispatch,
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);
+export default injectWidgetId(connect(mapStateToProps, mapDispatchToProps)(Toolbar));

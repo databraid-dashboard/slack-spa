@@ -8,12 +8,15 @@ import { connect } from 'react-redux';
 import { fetchMessagesForChannel } from '../Actions/index';
 import Message from './Message';
 import owl from '../images/avatars/owl.png';
-import type { Dispatch, State } from '../FlowTypes/';
+import type { Dispatch, OwnProps, State } from '../FlowTypes/';
+
+import injectWidgetId from '../Utils/utils';
 
 export class MessageList extends Component {
   props: {
     selectedChannel: ?string,
     messages: {},
+    fetchMessagesForChannel: Function,
   };
 
   render() {
@@ -47,16 +50,18 @@ export class MessageList extends Component {
   }
 }
 
-export const mapStateToProps = (state: State) => {
-  const selectedChannel = state.selectedChannel;
-  const messages = state.channelData[selectedChannel];
+export const mapStateToProps = (state: State, ownProps: OwnProps) => {
+  let id = ownProps.widgetId;
+  const selectedChannel = state.widgets.byId[id].selectedChannel;
+  const messages = state.widgets.byId[id].channelData[selectedChannel];
   return {
     selectedChannel,
     messages,
+    // currentScore,
   };
 };
 
 export const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ fetchMessagesForChannel }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MessageList);
+export default injectWidgetId(connect(mapStateToProps, mapDispatchToProps)(MessageList));
