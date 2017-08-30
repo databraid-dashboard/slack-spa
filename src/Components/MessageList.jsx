@@ -1,7 +1,7 @@
 // @flow
 
 /* eslint-disable */
-import React from 'react';
+import React, { Component } from 'react';
 import { List } from 'semantic-ui-react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,23 +10,18 @@ import Message from './Message';
 import owl from '../images/avatars/owl.png';
 import type { Dispatch, State } from '../FlowTypes/';
 
-class MessageList extends React.Component {
+export class MessageList extends Component {
   props: {
     selectedChannel: ?string,
     messages: {},
-  }
+  };
 
   render() {
-    const { selectedChannel } = this.props;
-    let { messages } = this.props;
+    let { messages, selectedChannel, fetchMessagesForChannel } = this.props;
 
-// TODO: remove this code - will fetch messages through sockets
     if (!messages) {
       if (selectedChannel) {
-        setTimeout(
-          () => fetchMessagesForChannel(selectedChannel),
-          0,
-        );
+        fetchMessagesForChannel(selectedChannel);
       }
       messages = {};
     }
@@ -35,15 +30,15 @@ class MessageList extends React.Component {
 
     return (
       <List celled>
-        {messageIds.map((msgId) => {
-          const { avatarImage, name, text, timestamp } = messages[msgId];
+        {messageIds.map(msgId => {
+          const { userMapId, message, messageTimestamp, rawTs } = messages[msgId];
           return (
             <Message
-              key={msgId}
+              key={rawTs}
               avatarImage={owl}
-              name={name}
-              text={`${avatarImage} says: ${text}`}
-              timestamp={timestamp}
+              name={userMapId}
+              text={`${userMapId} says: ${message}`}
+              timestamp={messageTimestamp}
             />
           );
         })}
@@ -52,14 +47,12 @@ class MessageList extends React.Component {
   }
 }
 
-export { MessageList };
-
 export const mapStateToProps = (state: State) => {
-  const messages = state.channelData[state.selectedChannel];
+  const selectedChannel = state.selectedChannel;
+  const messages = state.channelData[selectedChannel];
   return {
+    selectedChannel,
     messages,
-    selectedChannel: state.selectedChannel,
-    // currentScore,
   };
 };
 

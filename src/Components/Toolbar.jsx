@@ -1,7 +1,7 @@
 // @flow
 
 /* eslint-disable */
-import React from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Dropdown, Image, Menu } from 'semantic-ui-react';
@@ -16,31 +16,29 @@ import smile from '../images/emojis/smile.jpg';
 import '../index.css';
 import type { ChannelData } from '../FlowTypes/';
 
-const sentiments =
-  {
-    frustrated,
-    sad,
-    neutral,
-    smile,
-    happy,
+const sentiments = {
+  frustrated,
+  sad,
+  neutral,
+  smile,
+  happy,
+};
+
+export class Toolbar extends Component {
+  props: {
+    score: mixed,
+    channelData: ChannelData,
+    selectedChannel: mixed,
+    fetchChannels: Function,
+    selectChannel: mixed,
   };
 
-export class Toolbar extends React.Component {
   componentWillMount() {
     const channels = Object.keys(this.props.channelData);
     if (channels.length === 0) {
       this.props.fetchChannels();
     }
   }
-
-  props: {
-    score: mixed,
-    channelData: ChannelData,
-    fetchChannels: Function,
-    selectChannel: mixed,
-    selectedChannel: mixed,
-
-  };
 
   render() {
     const { score, selectedChannel, channelData, selectChannel } = this.props;
@@ -55,24 +53,20 @@ export class Toolbar extends React.Component {
         </Menu.Item>
         <Dropdown item text={selectedChannel || 'Select a channel'}>
           <Dropdown.Menu>
-            {Object.keys(channelData).map(
-              channel =>
-                (<Dropdown.Item
-                  key={channel}
-                  onClick={() => selectChannel(channel)}
-                  selected={channel === selectedChannel}
-                >
-                  {channel}
-                </Dropdown.Item>),
+            {Object.keys(channelData).map(channel =>
+              <Dropdown.Item
+                key={channel}
+                onClick={() => selectChannel(channel)}
+                selected={channel === selectedChannel}
+              >
+                {channel}
+              </Dropdown.Item>,
             )}
           </Dropdown.Menu>
         </Dropdown>
         <Menu.Menu position="right">
           <Menu.Item className="ui button">
-            <Image
-              avatar
-              src={sentiments[currentSentiment]}
-            />
+            <Image avatar src={sentiments[currentSentiment]} />
           </Menu.Item>
         </Menu.Menu>
       </Menu>
@@ -80,14 +74,25 @@ export class Toolbar extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  selectedChannel: state.selectedChannel,
-  score: state.scoreData[state.selectedChannel],
-  channelData: state.channelData,
-});
+const mapStateToProps = state => {
+  const selectedChannel = state.selectedChannel;
+  const score = state.scoreData[selectedChannel];
+  const channelData = state.channelData;
+
+  return {
+    selectedChannel,
+    score,
+    channelData,
+  };
+};
+
 const mapDispatchToProps = dispatch =>
-bindActionCreators({
-  selectChannel, fetchChannels,
-}, dispatch);
+  bindActionCreators(
+    {
+      selectChannel,
+      fetchChannels,
+    },
+    dispatch,
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar);

@@ -38,16 +38,21 @@ class App extends Component {
 }
 
 export const mapStateToProps = (state: State) => {
-  const currentScore = state.scoreData[state.selectedChannel] || 0.01;
-  const messages = state.channelData[state.selectedChannel] || {};
+  const selectedChannel = state.selectedChannel;
+  const isConnectedWithSlack = state.isConnectedWithSlack;
+  const isShowingScores = state.isShowingScores;
+  // const slackSession = state.slackSession;
+  // const currentScore = state.scoreData[state.selectedChannel] || 0.01;
+  // const messages = state.channelData[state.selectedChannel] || {};
+  // const store = state.score,
+
   return {
-    // isShowingScores: state.isShowingScores,
-    messages,
-    score: state.score,
-    selectedChannel: state.selectedChannel,
-    isConnectedWithSlack: state.isConnectedWithSlack,
-    // slackSession: state.slackSession,
-    currentScore,
+    selectedChannel,
+    isConnectedWithSlack,
+    isShowingScores,
+    // messages,
+    // score,
+    // currentScore,
   };
 };
 
