@@ -6,22 +6,22 @@ import storeReducer from './Reducers/index';
 
 /* eslint-disable */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(storeReducer,
+const store = createStore(
+  storeReducer,
   {
-    isShowingScores: false,   // will need this later
+    isShowingScores: false, // will need this later
     isConnectedWithSlack: false,
     channelData: {},
     scoreData: {},
     selectedChannel: null,
-  }, composeEnhancers(
-    applyMiddleware(thunkMiddleware),
-  ));
-
+  },
+  composeEnhancers(applyMiddleware(thunkMiddleware)),
+);
 
 /* eslint-disable */
-store.subscribe(() => {
-  console.log('State: ', store.getState());
-});
+// store.subscribe(() => {
+//   console.log('State: ', store.getState());
+// });
 
 // TODO: remove
 window.store = store;
