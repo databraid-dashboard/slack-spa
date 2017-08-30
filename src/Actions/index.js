@@ -1,5 +1,5 @@
 // @flow
-
+import { WIDGET_ID } from '../Constants/index';
 import type { MessageType, Id, Dispatch, GetState } from '../FlowTypes/';
 
 const PATH = 'http://localhost:8001/';
@@ -28,7 +28,7 @@ export function fetchChannels() {
 
 export function fetchMessagesForChannel(channel: string) {
   return async function (dispatch: Dispatch, getState: GetState) {
-    const oldMessages = getState().channelData[channel];
+    const oldMessages = getState().widgets.byId[WIDGET_ID].channelData[channel];
 
     if (oldMessages) return;
 
