@@ -4,7 +4,7 @@ import type { Action, ChannelData, State } from '../FlowTypes/';
 import { WIDGET_ID } from '../Constants/';
 
 export const stateDefaults: State = {
-  isShowingScores: false,   // will need this later
+  isShowingScores: false, // will need this later
   isConnectedWithSlack: false,
   channelData: {},
   scoreData: {},

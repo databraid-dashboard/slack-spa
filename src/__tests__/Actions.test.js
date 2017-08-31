@@ -52,9 +52,9 @@ describe('Actions', () => {
     const store = mockStore(initialState);
 
     return store.dispatch(actions.fetchChannels())
-        .then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
-        });
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   // TODO: add test for 'RECEIVED_MESSAGES_FOR_CHANNEL' action
