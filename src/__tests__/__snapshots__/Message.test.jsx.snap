@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders message with default props should render a message when given props 1`] = `
+<ListItem
+  className="listItem"
+>
+  <Image
+    as="img"
+    avatar={true}
+    ui={true}
+  />
+  <ListContent>
+    <ListHeader>
+      John Appleseed, 3:50 PM, 08-02-2017
+      <ListDescription>
+        Hello there
+      </ListDescription>
+    </ListHeader>
+  </ListContent>
+</ListItem>
+`;

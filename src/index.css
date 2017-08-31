@@ -1,5 +1,19 @@
 body {
-  margin: 0;
-  padding: 0;
+  margin: 100px;
+  padding: 10px;
   font-family: sans-serif;
+}
+
+.toolbar {
+  display: inline;
+  margin-right: 100em;
+  background-color: yellow;
+}
+
+.listColor {
+  background-color: #e0ffff;
+}
+
+.connectButton {
+  padding-bottom: 50px;
 }
