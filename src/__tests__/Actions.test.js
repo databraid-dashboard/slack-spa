@@ -10,7 +10,6 @@ import * as actions from '../Actions/index';
 //   selectChannel,
 // } from '../Actions/index';
 
-
 describe('Actions', () => {
   it('should return an action object from connecting with Slack', () => {
     const action = actions.connectWithSlack();
@@ -21,11 +20,9 @@ describe('Actions', () => {
 
   // TODO: fix this test
   xit('should return an action object from fetchChannels', () => {
-    const channels = ['#random', '#general', '#dev'];
+    const channels = ['random', 'general', 'dev'];
     const mockApiFetchChannels = jest.fn();
-    mockApiFetchChannels.mockReturnValue(
-      Promise.resolve({ channels }),
-    );
+    mockApiFetchChannels.mockReturnValue(Promise.resolve({ channels }));
 
     const extraArgument = {
       Api: {
@@ -44,7 +41,7 @@ describe('Actions', () => {
     const expectedActions = [
       {
         type: 'RECEIVED_CHANNEL_LIST',
-        channels: ['#random', '#general', '#dev'],
+        channels: ['random', 'general', 'dev'],
       },
     ];
 
@@ -77,7 +74,7 @@ describe('Actions', () => {
 
   it('should return an action object from processNewScores', () => {
     const newScoreData = {
-      '#random': 0.2,
+      random: 0.2,
     };
     const expectedAction = {
       scoreData: newScoreData,
@@ -87,7 +84,7 @@ describe('Actions', () => {
   });
 
   it('should return an action object from selectChannel', () => {
-    const channel = '#random';
+    const channel = 'random';
     const expectedAction = {
       channel,
       type: 'SELECT_CHANNEL',

@@ -14,7 +14,6 @@ import type { DefaultProps, OwnProps, State } from './FlowTypes/';
 import { WIDGET_ID } from './Constants/';
 import './App.css';
 
-
 class App extends Component<DefaultProps, OwnProps, State> {
   state: State;
 
@@ -48,23 +47,22 @@ class App extends Component<DefaultProps, OwnProps, State> {
   }
 }
 
-
 App.propTypes = {
   widgetId: PropTypes.string.isRequired,
 };
 
 App.defaultProps = {
   widgetId: WIDGET_ID,
-  isShowingScores: false,   // will need this later
+  isShowingScores: false, // will need this later
   isConnectedWithSlack: false,
-  channelData: {'#redux': {}},
-  scoreData: {'score': 0.01},
+  channelData: { '#redux': {} },
+  scoreData: { score: 0.01 },
   selectedChannel: null,
 };
 
 App.childContextTypes = {
   widgetId: PropTypes.string,
-}
+};
 
 export const mapStateToProps = (state: State, ownProps: OwnProps) => {
   const id = ownProps.widgetId;
