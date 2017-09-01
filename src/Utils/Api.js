@@ -6,7 +6,7 @@ const PATH = 'http://localhost:8001';
 
 /* eslint func-names: ["error", "never"] */
 function fetchRequest(path) {
-  return fetch(path).then(response => response.json());
+  return fetch(path).then(response => response.json()).catch(err => err);
 }
 
 export default class SLACK_API {
