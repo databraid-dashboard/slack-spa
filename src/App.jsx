@@ -3,9 +3,14 @@
 /* eslint-disable */
 
 /* eslint-disable import/no-named-as-default */
-import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import io from 'socket.io-client';
+import { processNewMessages, processNewScores } from './Actions/index';
+
 import LoginView from './Components/LoginView';
 import MessageList from './Components/MessageList';
 import injectWidgetId from './Utils/utils';
@@ -17,11 +22,30 @@ import './App.css';
 class App extends Component<DefaultProps, OwnProps, State> {
   state: State;
 
+  componentWillMount() {
+    const socket = io.connect('http://localhost:8001');
+
+    socket.on('messages', messages => {
+      this.props.processNewMessages(messages);
+    });
+
+    socket.on('score', scoreData => {
+      this.props.processNewScores(scoreData);
+    });
+  }
+
+  componentWillUnmount() {
+    socket.disconnect();
+    console.dir('Disconnecting Socket as component will unmount');
+  }
+
   getChildContext() {
     return { widgetId: this.props.widgetId };
   }
 
   props: {
+    processNewMessages: mixed,
+    processNewScores: mixed,
     isConnectedWithSlack: boolean,
     selectedChannel: mixed,
     widgetId: string,
@@ -55,8 +79,8 @@ App.defaultProps = {
   widgetId: WIDGET_ID,
   isShowingScores: false, // will need this later
   isConnectedWithSlack: false,
-  channelData: { 'redux': {} },
-  scoreData: { 'score': 0.01 },
+  channelData: { redux: {} },
+  scoreData: { score: 0.01 },
   selectedChannel: null,
 };
 
@@ -86,4 +110,14 @@ export const mapStateToProps = (state: State, ownProps: OwnProps) => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+export const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      processNewMessages,
+      processNewScores,
+    },
+    dispatch,
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connect(mapStateToProps)(App);
