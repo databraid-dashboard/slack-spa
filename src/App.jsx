@@ -23,7 +23,10 @@ class App extends Component<DefaultProps, OwnProps, State> {
   state: State;
 
   componentWillMount() {
+    // TODO: Get to work with .env file--currently process.env object contains neither SLACK_API_URL nor SLACK_CONNECT_HREF
     const socket = io.connect('http://localhost:8001');
+    // console.log(process.env);
+    // const socket = io.connect(process.env.SLACK_API_URL);
 
     socket.on('messages', messages => {
       this.props.processNewMessages(messages);
