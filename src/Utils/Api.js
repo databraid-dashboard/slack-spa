@@ -1,14 +1,13 @@
 // @flow
 
-// TODO: Get to work with .env file--
-// currently process.env object contains neither SLACK_API_URL nor SLACK_CONNECT_HREF
-const PATH = 'http://localhost:8001';
-// const PATH = process.env.SLACK_API_URL;
+const PATH = process.env.REACT_APP_SLACK_API_URL;
 
 /* eslint func-names: ["error", "never"] */
 
 function fetchRequest(path) {
-  return fetch(path).then(response => response.json()).catch(err => err);
+  return fetch(path)
+    .then(response => response.json())
+    .catch(err => err);
 }
 
 export default class SLACK_API {
