@@ -1,5 +1,4 @@
 // @flow
-
 /* eslint-disable */
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
@@ -78,8 +77,6 @@ export class Toolbar extends Component {
 }
 
 export const mapStateToProps = (state: State, ownProps: OwnProps) => {
-  console.log('** Toolbar ownProps', state, ownProps);
-
   const id = ownProps.widgetId;
   const selectedChannel = state.widgets.byId[id].selectedChannel;
   const score = state.widgets.byId[id].scoreData[selectedChannel];

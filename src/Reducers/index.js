@@ -23,16 +23,17 @@ export function storeReducer(state: State = stateDefaults, action: Action): Stat
         ...state,
         isConnectedWithSlack: true,
       };
-
     case 'SELECT_CHANNEL':
       return {
         ...state,
         selectedChannel: action.channel,
       };
-
     case 'RECEIVED_CHANNEL_LIST': {
       newChannelData = { ...state.channelData };
 
+      /* NOTE: Channels come back as an array of objects with more than just channel name.
+      Perhaps this should be altered in the '/channels' route in the API. */
+      // const channelNames = action.channels;
       const channelNames = action.channels.map(channel => channel.channelName);
 
       channelNames.forEach((channel) => {
@@ -50,27 +51,17 @@ export function storeReducer(state: State = stateDefaults, action: Action): Stat
         selectedChannel: newSelectedChannel,
       };
     }
-
     case 'RECEIVED_MESSAGES_FOR_CHANNEL':
       newChannelData = { ...state.channelData };
-
       newChannelData[action.channel] = { ...newChannelData[action.channel] };
 
-      // NOTE: Messages for a channel come back as an array of objects
       action.messages.forEach((message) => {
-        newChannelData[action.channel][message.id] = message;
+        newChannelData[action.channel][message.messageId] = message;
       });
-
-      // NOTE: Not currently as an object of objects...
-      // Object.keys(action.messages).forEach((id) => {
-      //   newChannelData[action.channel][id] = action.messages[id];
-      // });
-
       return {
         ...state,
         channelData: newChannelData,
       };
-
     case 'RECEIVED_NEW_SCORE':
       newScoreData = { ...state.scoreData, ...action.scoreData };
       return {
@@ -83,7 +74,6 @@ export function storeReducer(state: State = stateDefaults, action: Action): Stat
         ...state,
         isShowingScores: true,
       };
-
     case 'RECEIVED_NEW_MESSAGES':
       newChannelData = { ...state.channelData };
       Object.keys(action.messages).forEach((channelId) => {
@@ -92,12 +82,10 @@ export function storeReducer(state: State = stateDefaults, action: Action): Stat
           newChannelData[channelId][messageId] = action.messages[channelId][messageId];
         });
       });
-
       return {
         ...state,
         channelData: newChannelData,
       };
-
     default:
       return state;
   }
