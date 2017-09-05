@@ -34,39 +34,21 @@ export class MessageList extends Component {
     const sizes = ['mini', 'tiny', 'small', 'large', 'big', 'huge', 'massive'];
 
     /*
-    messageId: 3
-
-    userId: "U6T3VM814"
-
-    channelId: "C6DUVSW3A"
-
-    rawTs: "1501626043.643661"
-
-    messageTimestamp: "2017-08-01T22:20:43.643Z"
-
-    message: "Happy things! Look at this message. It is sooooo cool."
-
-    channelName: "dev"
-
-    userName: "tylerlangenbrunner"
-
-    realName: "Tyler Langenbrunner"
-
-    firstName: "Tyler"
-
-    lastName: "Langenbrunner"
-
-    statusEmoji: ":slack:"
-
-    image24: "https://secure.gravatar.com/avatar/bffb6bb05942ed7400905f9ceb0f6cdf.jpg?s=24&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0011-24.png"
-
-    image512: "https://secure.gravatar.com/avatar/bffb6bb05942ed7400905f9ceb0f6cdf.jpg?s=512&d=https%3A%2F%2Fa.slack-edge.com%2F7fa9%2Fimg%2Favatars%2Fava_0011-512.png
-    */
+NOTE: Properties available for each message:
+ - messageId* (integer): Primary key from database table. *Only a property of messages retrieved fmor the database, not on messages emitted via Socket.io
+ - avatarImage (string): Image size 24
+ - name (string): "Real name", e.g. 'Kurtis Houser'
+ - userName (string): "User name", e.g. 'thekurtishouser' or other
+ - text (string): The message
+ - timestamp (string): Formatted timestamp, e.g. '2017-08-01T22:20:43.643Z'
+ - rawTimestamp (string): Raw timestamp e.g. '1501626043.643661'
+ - channelName (string): Name of the the channel, e.g. 'dev'
+ - statusEmoji (string): As labeled internally by slack, e.g. ':slack:'
+*/
 
     return (
-      <List celled size={sizes[3]}>
+      <List celled size={sizes[2]}>
         {messageIds.map(msgId => {
-          // const { userMapId, message, messageTimestamp, rawTs } = messages[msgId];
           const { avatarImage, name, text, timestamp } = messages[msgId];
           return (
             <Message
