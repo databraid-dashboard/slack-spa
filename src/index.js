@@ -23,6 +23,3 @@ ReactDOM.render(
 registerServiceWorker();
 
 getSocket();
-
-export default App;
-export { rootReducer };
