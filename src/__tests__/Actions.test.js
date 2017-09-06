@@ -71,6 +71,76 @@ describe('Actions', () => {
     });
   });
 
+  it('return an action object from fetchMessagesForChannel', () => {
+    const mockApiFetchMessagesForChannel = jest.fn();
+    mockApiFetchMessagesForChannel.mockReturnValue(
+      Promise.resolve([
+        {
+          dev: {
+            3: {
+              messageId: 3,
+              avatarImage:
+                'https://secure.gravatar.com/avatar/bffb6bb05942ed7400905f9ceb0f6cdf.jpg?s=24&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0011-24.png',
+              name: 'Tyler Langenbrunner',
+              userName: 'tylerlangenbrunner',
+              text: 'Happy things! Look at this message. It is sooooo cool.',
+              timestamp: '2017-08-01T22:20:43.643Z',
+              rawTimestamp: '1501626043.643661',
+              channelName: 'dev',
+              statusEmoji: ':slack:',
+            },
+          },
+        },
+      ]),
+    );
+
+    const extraArgument = {
+      SLACK_API: {
+        fetchRequestMessagesForChannel: mockApiFetchMessagesForChannel,
+      },
+    };
+
+    const initialState = {
+      isShowingScores: false,
+      isConnectedWithSlack: true,
+      channelData: {},
+      scoreData: {},
+      selectedChannel: null,
+    };
+
+    const expectedActions = [
+      {
+        channel: 'dev',
+        messages: [
+          {
+            dev: {
+              3: {
+                messageId: 3,
+                avatarImage:
+                  'https://secure.gravatar.com/avatar/bffb6bb05942ed7400905f9ceb0f6cdf.jpg?s=24&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0011-24.png',
+                name: 'Tyler Langenbrunner',
+                userName: 'tylerlangenbrunner',
+                text: 'Happy things! Look at this message. It is sooooo cool.',
+                timestamp: '2017-08-01T22:20:43.643Z',
+                rawTimestamp: '1501626043.643661',
+                channelName: 'dev',
+                statusEmoji: ':slack:',
+              },
+            },
+          },
+        ],
+        type: 'RECEIVED_MESSAGES_FOR_CHANNEL',
+      },
+    ];
+
+    const mockStore = configureStore([thunk.withExtraArgument(extraArgument)]);
+    const store = mockStore(initialState);
+
+    return store.dispatch(actions.fetchMessagesForChannel('dev')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
   it('should return an action object from processNewMessages', () => {
     const newMessageData = {
       1: {
