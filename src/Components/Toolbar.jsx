@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Dropdown, Image, Menu } from 'semantic-ui-react';
-import { selectChannel, fetchChannels } from '../Actions/index';
+import { selectChannel, fetchChannels, fetchScoreForChannel } from '../Actions/index';
 import convertScoreToColorAndEmoji from '../Utils/';
 import frustrated from '../images/emojis/frustrated.jpg';
 import happy from '../images/emojis/happy.jpg';
@@ -39,11 +39,18 @@ export class Toolbar extends Component {
     fetchChannels: Function,
     selectChannel: mixed,
     selectedChannel: mixed,
+    fetchScoreForChannel: Function,
   };
 
   render() {
-    // TODO: Sentiment analysis needs to be added; work is being done on the API side to add routes to get sentiment scores into/out of the DB
-    const { score, selectedChannel, channelData, selectChannel } = this.props;
+    const { score, selectedChannel, channelData, selectChannel, fetchScoreForChannel } = this.props;
+
+    if (!score) {
+      if (selectedChannel) {
+        fetchScoreForChannel(selectedChannel);
+      }
+    }
+
     const currentSentiment = convertScoreToColorAndEmoji(score).emoji;
     const computedColor = convertScoreToColorAndEmoji(score).color;
     const menuClasses = `ui ${computedColor} inverted menu`;
@@ -55,15 +62,15 @@ export class Toolbar extends Component {
         </Menu.Item>
         <Dropdown item text={selectedChannel || 'Select a channel'}>
           <Dropdown.Menu>
-            {Object.keys(channelData).map(channel =>
+            {Object.keys(channelData).map(channel => (
               <Dropdown.Item
                 key={channel}
                 onClick={() => selectChannel(channel)}
                 selected={channel === selectedChannel}
               >
                 {channel}
-              </Dropdown.Item>,
-            )}
+              </Dropdown.Item>
+            ))}
           </Dropdown.Menu>
         </Dropdown>
         <Menu.Menu position="right">
@@ -94,6 +101,7 @@ export const mapDispatchToProps = (dispatch: Dispatch) =>
     {
       selectChannel,
       fetchChannels,
+      fetchScoreForChannel,
     },
     dispatch,
   );
