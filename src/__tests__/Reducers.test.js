@@ -12,8 +12,7 @@ const initialState = {
 
 describe('storeReducer', () => {
   it('should not do anything when action is unknown', () => {
-    expect(storeReducer({ foo: 'bar' }, { type: 'UNKNOWN_ACTION' }))
-      .toEqual({ foo: 'bar' });
+    expect(storeReducer({ foo: 'bar' }, { type: 'UNKNOWN_ACTION' })).toEqual({ foo: 'bar' });
   });
 
   it('should have initial state', () => {
@@ -21,7 +20,10 @@ describe('storeReducer', () => {
   });
 
   it('should not affect state', () => {
-    Reducer(storeReducer).withState(initialState).expect({ type: 'NOT_EXISTING' }).toReturnState(initialState);
+    Reducer(storeReducer)
+      .withState(initialState)
+      .expect({ type: 'NOT_EXISTING' })
+      .toReturnState(initialState);
   });
 
   it('should store boolean for slack connection', () => {
@@ -39,6 +41,39 @@ describe('storeReducer', () => {
       .withState(existingState)
       .expect(action)
       .toReturnState({ ...initialState, selectedChannel: 2 });
+  });
+
+  it('should store channel list', () => {
+    const action = {
+      channels: [
+        {
+          channelId: 'C6DUVSW3A',
+          channelName: 'dev',
+        },
+        {
+          channelId: 'C6E2XMK4H',
+          channelName: 'general',
+        },
+        {
+          channelId: 'C6E2XMLAV',
+          channelName: 'random',
+        },
+      ],
+      type: 'RECEIVED_CHANNEL_LIST',
+    };
+
+    Reducer(storeReducer)
+      .withState(initialState)
+      .expect(action)
+      .toReturnState({
+        ...initialState,
+        channelData: {
+          dev: null,
+          general: null,
+          random: null,
+        },
+        selectedChannel: 'dev',
+      });
   });
 
   it('should store boolean indicating score presence', () => {
