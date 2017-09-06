@@ -141,6 +141,45 @@ describe('Actions', () => {
     });
   });
 
+  it('return an action object from fetchScoreForChannel', () => {
+    const mockApiFetchScoreForChannel = jest.fn();
+    mockApiFetchScoreForChannel.mockReturnValue(
+      Promise.resolve([
+        {
+          dev: '0.02',
+        },
+      ]),
+    );
+
+    const extraArgument = {
+      SLACK_API: {
+        fetchRequestScoreForChannel: mockApiFetchScoreForChannel,
+      },
+    };
+
+    const initialState = {
+      isShowingScores: false,
+      isConnectedWithSlack: true,
+      channelData: {},
+      scoreData: {},
+      selectedChannel: null,
+    };
+
+    const expectedActions = [
+      {
+        scoreData: [{ dev: '0.02' }],
+        type: 'RECEIVED_SCORE_FOR_CHANNEL',
+      },
+    ];
+
+    const mockStore = configureStore([thunk.withExtraArgument(extraArgument)]);
+    const store = mockStore(initialState);
+
+    return store.dispatch(actions.fetchScoreForChannel('dev')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
   it('should return an action object from processNewMessages', () => {
     const newMessageData = {
       1: {
