@@ -62,6 +62,13 @@ export function storeReducer(state: State = stateDefaults, action: Action): Stat
         ...state,
         channelData: newChannelData,
       };
+    case 'RECEIVED_SCORE_FOR_CHANNEL':
+      newScoreData = { ...state.scoreData, ...action.scoreData };
+      return {
+        ...state,
+        isShowingScores: true,
+        scoreData: newScoreData,
+      };
     case 'RECEIVED_NEW_SCORE':
       newScoreData = { ...state.scoreData, ...action.scoreData };
       return {
