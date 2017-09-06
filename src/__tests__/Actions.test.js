@@ -1,14 +1,6 @@
-// import { Thunk } from 'redux-testkit';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import * as actions from '../Actions/index';
-
-// import {
-//   connectWithSlack,
-//   processNewMessages,
-//   processNewScores,
-//   selectChannel,
-// } from '../Actions/index';
 
 describe('Actions', () => {
   it('should return an action object from connecting with Slack', () => {
@@ -18,21 +10,34 @@ describe('Actions', () => {
     });
   });
 
-  // TODO: fix this test
-  xit('should return an action object from fetchChannels', () => {
-    const channels = ['random', 'general', 'dev'];
+  it('return an action object from fetchChannels', () => {
     const mockApiFetchChannels = jest.fn();
-    mockApiFetchChannels.mockReturnValue(Promise.resolve({ channels }));
+    mockApiFetchChannels.mockReturnValue(
+      Promise.resolve([
+        {
+          channelId: 'C6DUVSW3A',
+          channelName: 'dev',
+        },
+        {
+          channelId: 'C6E2XMK4H',
+          channelName: 'general',
+        },
+        {
+          channelId: 'C6E2XMLAV',
+          channelName: 'random',
+        },
+      ]),
+    );
 
     const extraArgument = {
-      Api: {
-        fetchChannels: mockApiFetchChannels,
+      SLACK_API: {
+        fetchRequestChannels: mockApiFetchChannels,
       },
     };
 
     const initialState = {
       isShowingScores: false,
-      isConnectedWithSlack: false,
+      isConnectedWithSlack: true,
       channelData: {},
       scoreData: {},
       selectedChannel: null,
@@ -40,21 +45,31 @@ describe('Actions', () => {
 
     const expectedActions = [
       {
+        channels: [
+          {
+            channelId: 'C6DUVSW3A',
+            channelName: 'dev',
+          },
+          {
+            channelId: 'C6E2XMK4H',
+            channelName: 'general',
+          },
+          {
+            channelId: 'C6E2XMLAV',
+            channelName: 'random',
+          },
+        ],
         type: 'RECEIVED_CHANNEL_LIST',
-        channels: ['random', 'general', 'dev', 'justforfun'],
       },
     ];
 
     const mockStore = configureStore([thunk.withExtraArgument(extraArgument)]);
     const store = mockStore(initialState);
 
-    return store.dispatch(actions.fetchChannels())
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+    return store.dispatch(actions.fetchChannels()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
   });
-
-  // TODO: add test for 'RECEIVED_MESSAGES_FOR_CHANNEL' action
 
   it('should return an action object from processNewMessages', () => {
     const newMessageData = {
