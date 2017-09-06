@@ -35,6 +35,17 @@ export function fetchMessagesForChannel(channel: string) {
   };
 }
 
+export function fetchScoreForChannel(channel: string) {
+  return async (dispatch: Dispatch, getState: GetState, { SLACK_API }: SlackApi) => {
+    const scoreData = await SLACK_API.fetchRequestScoreForChannel(channel);
+
+    dispatch({
+      scoreData,
+      type: 'RECEIVED_SCORE_FOR_CHANNEL',
+    });
+  };
+}
+
 export function processNewMessages(newMessageData: { [string]: ?{ [Id]: { [Id]: MessageType } } }) {
   return {
     messages: newMessageData,
