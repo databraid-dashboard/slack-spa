@@ -2,27 +2,12 @@ import { Reducer } from 'redux-testkit';
 import { storeReducer } from '../Reducers/index';
 import { processNewScores, processNewMessages } from '../Actions/index';
 
-// const initialState = {
-//   isShowingScores: false,
-//   isConnectedWithSlack: false,
-//   channelData: {},
-//   scoreData: {},
-//   selectedChannel: null,
-// };
-
 const initialState = {
-  widgets: {
-    ids: ['slack'],
-    byId: {
-      slack: {
-        isShowingScores: false,
-        isConnectedWithSlack: false,
-        channelData: {},
-        scoreData: {},
-        selectedChannel: null,
-      },
-    },
-  },
+  isShowingScores: false,
+  isConnectedWithSlack: false,
+  channelData: {},
+  scoreData: undefined,
+  selectedChannel: null,
 };
 
 describe('storeReducer', () => {
@@ -156,6 +141,35 @@ describe('storeReducer', () => {
             userName: 'tylerlangenbrunner',
           },
         },
+      });
+  });
+
+  // TODO: Fix this test
+  xit('should store score for a channel', () => {
+    const initialState = {
+      isShowingScores: false,
+      isConnectedWithSlack: false,
+      channelData: {
+        dev: null,
+        general: null,
+        random: null,
+      },
+      scoreData: undefined,
+      selectedChannel: 'dev',
+    };
+
+    const action = {
+      scoreData: [{ dev: '0.02' }],
+      type: 'RECEIVED_SCORE_FOR_CHANNEL',
+    };
+
+    Reducer(storeReducer)
+      .withState(initialState)
+      .expect(action)
+      .toReturnState({
+        ...initialState,
+        scoreData: { dev: '0.02' },
+        isShowingScores: true,
       });
   });
 
