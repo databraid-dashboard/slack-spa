@@ -20,4 +20,9 @@ export default class SLACK_API {
     const messages = await fetchRequest(`${PATH}/messages/${channel}`);
     return messages;
   }
+
+  static async fetchRequestScoreForChannel(channel) {
+    const score = await fetchRequest(`${PATH}/sentiment/${channel}`);
+    return score;
+  }
 }
