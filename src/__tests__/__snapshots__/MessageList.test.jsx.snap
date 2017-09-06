@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders message list with default props should render a message list when given props 1`] = `
+<Connect(MessageList)
+  selectedChannel="dev"
+/>
+`;
