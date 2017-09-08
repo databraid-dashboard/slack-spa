@@ -12,6 +12,7 @@ function fetchRequest(path) {
 
 export default class SLACK_API {
   static async fetchRequestChannels() {
+    console.log('channels fetch', `with the ${PATH}`);
     const channels = await fetchRequest(`${PATH}/channels`);
     return channels;
   }

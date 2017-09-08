@@ -1,4 +1,5 @@
 // @flow
+import SLACK_API from '../Utils/Api';
 import { WIDGET_ID } from '../Constants/index';
 import type { MessageType, Id, Dispatch, GetState, SlackApi } from '../FlowTypes/';
 
