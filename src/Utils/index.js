@@ -4,19 +4,19 @@ export default function convertScoreToColorAndEmoji(score: mixed) {
   const currentScore = parseFloat(score);
 
   if (currentScore < -0.4) {
-    return { color: 'red', emoji: 'frustrated' };
+    return { color: 'slack-red', emoji: 'frustrated' };
   }
   if (currentScore >= -0.4 && currentScore < -0.02) {
-    return { color: 'yellow', emoji: 'sad' };
+    return { color: 'slack-yellow', emoji: 'sad' };
   }
   if (currentScore >= -0.02 && currentScore < 0.02) {
-    return { color: 'grey', emoji: 'neutral' };
+    return { color: 'slack-grey', emoji: 'neutral' };
   }
   if (currentScore >= 0.02 && currentScore < 0.4) {
-    return { color: 'green', emoji: 'smile' };
+    return { color: 'slack-green', emoji: 'smile' };
   }
   if (currentScore >= 0.4) {
-    return { color: 'blue', emoji: 'happy' };
+    return { color: 'slack-blue', emoji: 'happy' };
   }
-  return { color: 'white', emoji: 'neutral' };
+  return { color: 'slack-white', emoji: 'neutral' };
 }

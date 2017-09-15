@@ -10,27 +10,27 @@ body {
   background-color: yellow;
 }
 
-.green {
+.slack-green {
   background-color: hsla(134, 100%, 88%, 0.7);
 }
 
-.blue {
+.slack-blue {
   background-color: hsla(212, 100%, 92%, 0.72);
 }
 
-.red {
+.slack-red {
   background-color: hsla(335, 93%, 89%, 0.48);
 }
 
-.grey {
+.slack-grey {
   background-color: hsla(235, 2%, 90%, 0.83);
 }
 
-.yellow {
+.slack-yellow {
   background-color: hsla(51, 100%, 86%, 0.83);
 }
 
-.white {
+.slack-white {
   background-color: hsla(336, 100%, 100%, 0.92);
 }
 

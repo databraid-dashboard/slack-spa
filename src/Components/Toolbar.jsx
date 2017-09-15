@@ -53,10 +53,10 @@ export class Toolbar extends Component {
 
     const currentSentiment = convertScoreToColorAndEmoji(score).emoji;
     const computedColor = convertScoreToColorAndEmoji(score).color;
-    const menuClasses = `ui ${computedColor} inverted menu`;
+    const menuClasses = `ui ${computedColor.slice(6)} inverted menu`;
 
     return (
-      <Menu size="small" className={menuClasses}>
+      <Menu size="small" inverted className={menuClasses}>
         <Menu.Item className="ui button">
           <Image avatar src={slack} />
         </Menu.Item>
