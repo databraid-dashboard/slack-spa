@@ -1,5 +1,17 @@
 {
   "extends": "airbnb",
+  "parser": "babel-eslint",
+  "plugins": [
+    "jsx-a11y",
+    "react",
+    "flowtype"
+  ],
+  "root": true,
+  "rules": {
+    "import/no-named-as-default": 0,
+    "flowtype/define-flow-type": 2,
+    "strict": 0
+  },
   "env": {
     "browser": true,
     "jest": true
