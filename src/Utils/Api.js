@@ -26,4 +26,9 @@ export default class SLACK_API {
     const score = await fetchRequest(`${PATH}/sentiment/${channel}`);
     return score;
   }
+
+  static async isLoggedIn() {
+    const connected = await fetchRequest(`${PATH}/slack/token`);
+    return connected;
+  }
 }
