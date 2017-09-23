@@ -31,4 +31,9 @@ export default class SLACK_API {
     const connected = await fetchRequest(`${PATH}/slack/token`);
     return connected;
   }
+
+  static async logout() {
+    const res = await fetch(`${PATH}/slack/logout`, { method: 'DELETE' });
+    return res;
+  }
 }
