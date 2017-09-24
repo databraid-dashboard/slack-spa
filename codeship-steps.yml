@@ -6,7 +6,7 @@
   tag: dev
 - service: slack-spa
   command: npm run create-module
-  tag: master
+  tag: dev
 - service: npm-publisher
   command: publish
   tag: master
