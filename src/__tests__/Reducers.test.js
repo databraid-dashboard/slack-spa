@@ -27,14 +27,6 @@ describe('storeReducer', () => {
       .toReturnState(initialState);
   });
 
-  it('should store boolean for slack connection', () => {
-    const action = { type: 'CONNECTED_WITH_SLACK' };
-    Reducer(storeReducer)
-      .withState(initialState)
-      .expect(action)
-      .toReturnState({ ...initialState, isConnectedWithSlack: true });
-  });
-
   it('should change boolean for slack connection to false', () => {
     const action = { type: 'DISCONNECTED_FROM_SLACK' };
     Reducer(storeReducer)

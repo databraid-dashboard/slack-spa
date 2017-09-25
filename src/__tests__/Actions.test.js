@@ -3,19 +3,82 @@ import thunk from 'redux-thunk';
 import * as actions from '../Actions/index';
 
 describe('Actions', () => {
+  // it('should return an action object from connecting with Slack', () => {
+  //   const action = actions.connectWithSlack();
+  //   expect(action).toEqual({
+  //     type: 'CONNECTED_WITH_SLACK',
+  //   });
+  // });
+
   it('should return an action object from connecting with Slack', () => {
-    const action = actions.connectWithSlack();
-    expect(action).toEqual({
-      type: 'CONNECTED_WITH_SLACK',
+    const mockApiConnectWithSlack = jest.fn();
+    mockApiConnectWithSlack.mockReturnValue(
+      Promise.resolve(true),
+    );
+
+    const extraArgument = {
+      SLACK_API: {
+        isLoggedIn: mockApiConnectWithSlack,
+      },
+    };
+
+    const initialState = {
+      isShowingScores: false,
+      isConnectedWithSlack: false,
+      channelData: {},
+      scoreData: {},
+      selectedChannel: null,
+    };
+
+    const expectedActions = [
+      {
+        connected: true,
+        type: 'CONNECTED_WITH_SLACK',
+      },
+    ];
+
+    const mockStore = configureStore([thunk.withExtraArgument(extraArgument)]);
+    const store = mockStore(initialState);
+
+    return store.dispatch(actions.connectWithSlack()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 
-  it('should return an action object from disconnecting from Slack', () => {
-    const action = actions.disconnectFromSlack();
-    expect(action).toEqual({
-      type: 'DISCONNECTED_FROM_SLACK',
+  it('should return an action object from disconnectFromSlack', () => {
+    const mockApiDisconnectFromSlack = jest.fn();
+    mockApiDisconnectFromSlack.mockReturnValue(
+      Promise.resolve(),
+    );
+
+    const extraArgument = {
+      SLACK_API: {
+        logout: mockApiDisconnectFromSlack,
+      },
+    };
+
+    const initialState = {
+      isShowingScores: false,
+      isConnectedWithSlack: true,
+      channelData: {},
+      scoreData: {},
+      selectedChannel: null,
+    };
+
+    const expectedActions = [
+      {
+        type: 'DISCONNECTED_FROM_SLACK',
+      },
+    ];
+
+    const mockStore = configureStore([thunk.withExtraArgument(extraArgument)]);
+    const store = mockStore(initialState);
+
+    return store.dispatch(actions.disconnectFromSlack()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
+
 
   it('should return an action object from fetchChannels', () => {
     const mockApiFetchChannels = jest.fn();

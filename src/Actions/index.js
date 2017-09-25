@@ -8,11 +8,10 @@ import type { MessageType, Id, Dispatch, GetState, SlackApi } from '../FlowTypes
 export function connectWithSlack() {
   return async (dispatch: Dispatch, getState: GetState, { SLACK_API }: SlackApi) => {
     const connected = await SLACK_API.isLoggedIn();
-    if (connected) {
-      dispatch({
-        type: 'CONNECTED_WITH_SLACK',
-      });
-    }
+    dispatch({
+      connected,
+      type: 'CONNECTED_WITH_SLACK',
+    });
   };
 }
 

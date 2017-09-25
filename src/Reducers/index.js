@@ -21,7 +21,7 @@ export function storeReducer(state: State = stateDefaults, action: Action): Stat
     case 'CONNECTED_WITH_SLACK':
       return {
         ...state,
-        isConnectedWithSlack: true,
+        isConnectedWithSlack: action.connected,
       };
     case 'DISCONNECTED_FROM_SLACK':
       return {
