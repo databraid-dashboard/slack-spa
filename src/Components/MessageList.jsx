@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { fetchMessagesForChannel } from '../Actions/index';
 import Message from './Message';
-// import owl from '../images/avatars/owl.png';
 import type { Dispatch, OwnProps, State } from '../FlowTypes/';
 
 import injectWidgetId from '../Utils/utils';
@@ -72,7 +71,6 @@ export const mapStateToProps = (state: State, ownProps: OwnProps) => {
   return {
     selectedChannel,
     messages,
-    // currentScore,
   };
 };
 

@@ -34,7 +34,6 @@ class App extends React.Component<DefaultProps, OwnProps, State> {
 
   componentWillUnmount() {
     this.socket.disconnect();
-    //console.dir('Disconnecting Socket as component will unmount');
   }
 
   getChildContext() {
@@ -106,7 +105,6 @@ export const mapStateToProps = (state: State, ownProps: OwnProps) => {
     score,
     selectedChannel,
     isConnectedWithSlack,
-    // slackSession: state.slackSession,
   };
 };
 
