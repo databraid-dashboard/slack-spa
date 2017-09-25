@@ -3,21 +3,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-// import type { Store } from 'redux';
-import getSocket from './Sockets/';
-// import openSocket from 'socket.io-client';
-// import { processNewScores, processNewMessages } from './Actions/index';
 import store from './store';
+import { WIDGET_ID } from './Constants/';
 
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+/* eslint-disable react/jsx-filename-extension */
 
 ReactDOM.render(
-  React.createElement(Provider, { store },
-    React.createElement(App),
-  ),
+  <Provider store={store}>
+    <App widgetId={WIDGET_ID} />
+  </Provider>,
   document.getElementById('root'),
 );
 registerServiceWorker();
 
-getSocket();
+
+export default App;

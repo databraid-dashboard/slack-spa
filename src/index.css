@@ -10,10 +10,46 @@ body {
   background-color: yellow;
 }
 
-.listColor {
-  background-color: #e0ffff;
+.slack-green {
+  background-color: hsla(134, 100%, 88%, 0.7);
+}
+
+.slack-blue {
+  background-color: hsla(212, 100%, 92%, 0.72);
+}
+
+.slack-red {
+  background-color: hsla(335, 93%, 89%, 0.48);
+}
+
+.slack-grey {
+  background-color: hsla(235, 2%, 90%, 0.83);
+}
+
+.slack-yellow {
+  background-color: hsla(51, 100%, 86%, 0.83);
+}
+
+.slack-white {
+  background-color: hsla(336, 100%, 100%, 0.92);
 }
 
 .connectButton {
   padding-bottom: 50px;
+}
+
+.message-author {
+  font-size: 11px;
+}
+
+.message-timestamp {
+  font-size: 11px;
+  font-weight: normal;
+}
+
+.scrolling {
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
 }

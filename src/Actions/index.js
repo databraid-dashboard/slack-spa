@@ -1,19 +1,8 @@
 // @flow
 
-import type {
-  MessageType,
-  Id,
-  Dispatch,
-  GetState,
-} from '../FlowTypes/';
-
-// const PATH = 'https://databraid.localtunnel.me';
-const PATH = 'http://localhost:4000/';
+import type { MessageType, Id, Dispatch, GetState, SlackApi } from '../FlowTypes/';
 
 /* eslint func-names: ["error", "never"] */
-function fetchRequest(path) {
-  return fetch(path);
-}
 
 export function connectWithSlack() {
   return {
@@ -21,10 +10,16 @@ export function connectWithSlack() {
   };
 }
 
+export function disconnectFromSlack() {
+  return {
+    type: 'DISCONNECTED_FROM_SLACK',
+  };
+}
+
+
 export function fetchChannels() {
-  return async function (dispatch: Dispatch) {
-    const response = await fetchRequest(`${PATH}channels`);
-    const channels = await response.json();
+  return async (dispatch: Dispatch, getState: GetState, { SLACK_API }: SlackApi) => {
+    const channels = await SLACK_API.fetchRequestChannels();
     dispatch({
       channels,
       type: 'RECEIVED_CHANNEL_LIST',
@@ -32,35 +27,37 @@ export function fetchChannels() {
   };
 }
 
-
 export function fetchMessagesForChannel(channel: string) {
-  return async function (dispatch: Dispatch, getState: GetState) {
-    const oldMessages = getState().channelData[channel];
-    if (oldMessages) {
-      // Don't fetch again if we already have messages.
-      return;
-    }
-    // Mark that we have messages to avoid fetching multiple times.
+  return async (dispatch: Dispatch, getState: GetState, { SLACK_API }: SlackApi) => {
+    const messages = await SLACK_API.fetchRequestMessagesForChannel(channel);
+
     dispatch({
       channel,
-      messages: {},
+      messages,
       type: 'RECEIVED_MESSAGES_FOR_CHANNEL',
     });
-
-    // TODO: replace with real Api call
-    fetch('http://localhost:4000/messages');
   };
 }
 
-export function processNewMessages(newMessageData: {[string]: ?{[Id]: {[Id]: MessageType}}}) {
-  // Mark that we have messages to avoid fetching multiple times.
+export function fetchScoreForChannel(channel: string) {
+  return async (dispatch: Dispatch, getState: GetState, { SLACK_API }: SlackApi) => {
+    const scoreData = await SLACK_API.fetchRequestScoreForChannel(channel);
+
+    dispatch({
+      scoreData,
+      type: 'RECEIVED_SCORE_FOR_CHANNEL',
+    });
+  };
+}
+
+export function processNewMessages(newMessageData: { [string]: ?{ [Id]: { [Id]: MessageType } } }) {
   return {
     messages: newMessageData,
     type: 'RECEIVED_NEW_MESSAGES',
   };
 }
 
-export function processNewScores(scoreData: {[string]: number}) {
+export function processNewScores(scoreData: { [string]: number }) {
   return {
     scoreData,
     type: 'RECEIVED_NEW_SCORE',

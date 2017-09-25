@@ -8,6 +8,7 @@
   ],
   "root": true,
   "rules": {
+    "import/no-named-as-default": 0,
     "flowtype/define-flow-type": 2,
     "strict": 0
   },
