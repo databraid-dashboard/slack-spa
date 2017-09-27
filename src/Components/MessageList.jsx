@@ -2,6 +2,7 @@
 
 /* eslint-disable */
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { List } from 'semantic-ui-react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -18,6 +19,19 @@ export class MessageList extends Component {
     messages: {},
     fetchMessagesForChannel: Function,
   };
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    const messagesElement = ReactDOM.findDOMNode(this.messagesElement)
+    messagesElement.scrollTop = messagesElement.scrollHeight;
+  }
 
   render() {
     let { messages, selectedChannel, fetchMessagesForChannel } = this.props;
@@ -47,7 +61,7 @@ NOTE: Properties available for each message:
 */
 
     return (
-      <List celled size={sizes[2]} className="scrolling">
+      <List celled size={sizes[2]} className="scrolling" ref={el => { this.messagesElement = el; }}>
         {messageIds.map(msgId => {
           const { avatarImage, name, text, timestamp } = messages[msgId];
           return (
