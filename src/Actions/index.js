@@ -6,17 +6,24 @@ import type { MessageType, Id, Dispatch, GetState, SlackApi } from '../FlowTypes
 /* eslint func-names: ["error", "never"] */
 
 export function connectWithSlack() {
-  return {
-    type: 'CONNECTED_WITH_SLACK',
+  return async (dispatch: Dispatch, getState: GetState, { SLACK_API }: SlackApi) => {
+    const connected = await SLACK_API.isLoggedIn();
+    if (connected) {
+      dispatch({
+        type: 'CONNECTED_WITH_SLACK',
+      });
+    }
   };
 }
 
 export function disconnectFromSlack() {
-  return {
-    type: 'DISCONNECTED_FROM_SLACK',
+  return async (dispatch: Dispatch, getState: GetState, { SLACK_API }: SlackApi) => {
+    await SLACK_API.logout();
+    dispatch({
+      type: 'DISCONNECTED_FROM_SLACK',
+    });
   };
 }
-
 
 export function fetchChannels() {
   return async (dispatch: Dispatch, getState: GetState, { SLACK_API }: SlackApi) => {

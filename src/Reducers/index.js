@@ -18,15 +18,11 @@ export function storeReducer(state: State = stateDefaults, action: Action): Stat
   let newSelectedChannel;
 
   switch (action.type) {
-    // TODO: needs to also query whether an user is logged in or not
-
     case 'CONNECTED_WITH_SLACK':
       return {
         ...state,
         isConnectedWithSlack: true,
       };
-
-    // TODO: needs to also query whether an user is logged in or not
     case 'DISCONNECTED_FROM_SLACK':
       return {
         ...state,

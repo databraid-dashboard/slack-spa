@@ -6,7 +6,7 @@ import { Button, Image } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import logo from '../images/slack-logo.png';
-// import slackConnectHref from '../Constants/';
+import { slackConnectHref } from '../Constants/';
 import slack from '../images/slackIcon.png';
 import { connectWithSlack } from '../Actions/index';
 import type { Dispatch } from '../FlowTypes/';
@@ -25,10 +25,10 @@ export function LoginView(props: Object) {
           <Button
             size="big"
             color={'teal'}
-            // href={slackConnectHref}
-            onClick={
-              () => connectWithSlack()
-            }
+            href={slackConnectHref}
+            // onClick={
+            //   () => connectWithSlack()
+            // }
           >
             <Image avatar src={slack} />
             Connect with Slack

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import io from 'socket.io-client';
-import { processNewMessages, processNewScores, fetchScoreForChannel } from './Actions/index';
+import { processNewMessages, processNewScores, fetchScoreForChannel, connectWithSlack } from './Actions/index';
 import LoginView from './Components/LoginView';
 import MessageList from './Components/MessageList';
 import injectWidgetId from './Utils/utils';
@@ -16,12 +16,13 @@ import type { DefaultProps, Dispatch, OwnProps, State } from './FlowTypes/';
 import { WIDGET_ID } from './Constants/';
 import './App.css';
 
+
 class App extends React.Component<DefaultProps, OwnProps, State> {
   state: State;
   socket: Object;
 
-
   componentWillMount() {
+    this.props.connectWithSlack();
     this.socket = io.connect(process.env.REACT_APP_SLACK_API_URL);
     this.socket.on('messages', messages => {
       this.props.processNewMessages(messages);
@@ -116,6 +117,7 @@ export const mapDispatchToProps = (dispatch: Dispatch) =>
       fetchScoreForChannel,
       processNewMessages,
       processNewScores,
+      connectWithSlack,
     },
     dispatch,
   );
